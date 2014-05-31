@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>暗黒惑星での戦い 敵を索敵して撃滅せよ</title>
+  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="../../cmn/utl.js" charset="UTF-8"></script>
+  <script src="../../cmn/xors.js" charset="UTF-8"></script>
+  <script src="p.js" charset="UTF-8"></script>
+  <script src="rndr.js" charset="UTF-8"></script>
+  <script src="makeEnemies.js" charset="UTF-8"></script>
+  <script src="makeEnemies2.js" charset="UTF-8"></script>
+  <script src="main.js" charset="UTF-8"></script>
+  <script src="code.js" charset="UTF-8"></script>
+</head>
+<body>
+  <h1>暗黒惑星での戦い 敵を索敵して撃滅せよ</h1>
+  <h2>● 敵配置</h2>
+
+  <div id="prmStr" style="border: solid 1px gray; 
+  background: #eeeeee; padding: 0.5em; line-height: 175%;">
+	<table>
+	<tr><td>w :</td>
+		<td>500</td>
+		<td>エリア横幅</td></tr>
+	<tr><td>h :</td>
+		<td>500</td>
+		<td>エリア高さ</td></tr>
+	<tr><td>bomb :</td>
+		<td><input type="text" id="_p_bomb"></td>
+		<td>爆弾数</td></tr>
+	<tr><td>rngOut :</td>
+		<td><input type="text" id="_p_rngOut"></td>
+		<td>爆弾索敵範囲</td></tr>
+	<tr><td>rngIn :</td>
+		<td><input type="text" id="_p_rngIn"></td>
+		<td>爆弾爆心地範囲</td></tr>
+	<tr><td>hole :</td>
+		<td><input type="text" id="_p_hole"></td>
+		<td>巣穴の数</td></tr>
+	<tr><td>holeEne :</td>
+		<td><input type="text" id="_p_holeEne"></td>
+		<td>巣穴から出てくる敵の数</td></tr>
+	<tr><td>mvMax :</td>
+		<td><input type="text" id="_p_mvMax"></td>
+		<td>敵の巣穴からの最大移動回数</td></tr>
+	<tr><td>mvX :</td>
+		<td><input type="text" id="_p_mvX"></td>
+		<td>敵の1回移動当たりのX方向移動量</td></tr>
+	<tr><td>mvY :</td>
+		<td><input type="text" id="_p_mvY"></td>
+		<td>敵の1回移動当たりのY方向移動量</td></tr>
+	<tr><td>gthrRng :</td>
+		<td><input type="text" id="_p_gthrRng"></td>
+		<td>敵の寄り集まり視界範囲(Max 20)</td></tr>
+	</table>
+	<input type="button" id="btnChngPrm" value="入力を適用">
+  </div>
+  <hr>
+  <canvas width=500 height=500 id="cnvs"></canvas>
+
+  <hr>
+  <h2>● コード入力</h2>
+  <div>
+	<textarea id="src" style="width: 600px; height: 250px;">
+	</textarea><br>
+  </div>
+
+  <div>
+	ランダム シード<input type="text" value="0" id="seed"><br>
+	<input type="button" value="コードを確認" id="chck">
+	<input type="button" value="シードを+1して確認" id="chckPls1">
+	<input type="button" value="100回確認" id="chck100">
+	<input type="text" value="200" id="tryNo"
+		style="width: 5em; text-align: right;">
+	<input type="button" value="回確認" id="chckN">
+	<select id="codeType">
+		<option value="makeEnemies2" selected>計算量削減なし</option>
+		<option value="makeEnemies">計算量削減あり</option>
+	</select>
+  </div>
+
+  <h2>● 結果判定</h2>
+  <textarea id="res" style="width: 600px; height: 10em;">
+  </textarea>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+function yourCode(w, h, mapArr, x1, y1, x2, y2) {
+	// 配列を初期化
+	var resArr  = [];
+
+	// コスト配列の初期化
+	var arr = [];
+	for (var i = 0; i < w * h; i ++) {arr[i] = Infinity;}
+
+	// 移動コストを計算
+	function genCstMap(x, y, cst) {
+		cst += mapArr[x + y * w];
+		if (cst >= arr[x + y * w]) return;
+		arr[x + y * w] = cst;
+
+		if (x > 0) genCstMap(x - 1, y, cst);
+		if (y > 0) genCstMap(x, y - 1, cst);
+		if (x < w - 1) genCstMap(x + 1, y, cst);
+		if (y < h - 1) genCstMap(x, y + 1, cst);
+	}
+	genCstMap(x2, y2, - mapArr[x2 + y2 * w]);
+
+	// デバッグ出力
+	for (var y = 0; y < h; y ++) {
+		var s = "";
+		for (var x = 0; x < w; x ++) {
+			var c = arr[x + y * w];
+			s += (c < 10 ? " " + c : c) + ", ";
+		}
+		console.log(s)
+	}
+
+	// ゴールからスタートへ移動
+	function bckMv(x, y) {
+		var cst = Infinity, tmp;
+		var x2, y2;
+		if (x > 0
+		 && (tmp = arr[(x - 1) + y * w]) < cst) {
+			cst = tmp; x2 = x - 1; y2 = y;
+		}
+		if (y > 0
+		 && (tmp = arr[x + (y - 1) * w]) < cst) {
+			cst = tmp; x2 = x; y2 = y - 1;
+		}
+		if (x < w - 1
+		 && (tmp = arr[(x + 1) + y * w]) < cst) {
+			cst = tmp; x2 = x + 1; y2 = y;
+		}
+		if (y < h - 1
+		 && (tmp = arr[x + (y + 1) * w]) < cst) {
+			cst = tmp; x2 = x; y2 = y + 1;
+		}
+		if (cst == 0) return;
+		resArr.push(x2, y2);
+		bckMv(x2, y2);
+	}
+	resArr.push(x1, y1);
+	bckMv(x1, y1);
+	resArr.push(x2, y2);
+
+	// 結果の配列を戻して終了
+	return resArr;
+}

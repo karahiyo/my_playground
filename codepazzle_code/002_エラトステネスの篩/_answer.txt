@@ -1,0 +1,40 @@
+function yourCode() {
+	// 配列を初期化
+	var resArr  = [];
+
+	var primeArr = [];	// 素数リスト
+	var numArr = [];	// 探索リスト
+	var start = 2;		// 開始数値
+	var end = 100		// 終了数値
+	var n = start;		// 現在確認中の数値
+
+	// 開始数値～終了数値を配列に格納
+	for (var i = start; i <= end; i ++) {
+		numArr.push(i);
+	}
+
+	// 探索リストが空になるまで素数を探索
+	while (numArr.length) {
+		// 先頭の数値を素数として取得
+		n = numArr.shift();
+
+		// 素数リストに格納
+		primeArr.push(n);
+
+		// 素数の倍数を削除
+		// 逆向きにループすることで、配列を削除しても
+		// そのままのiの値で処理が可能
+		for (var i = numArr.length - 1; i >= 0; i --) {
+			if (numArr[i] % n == 0) numArr.splice(i, 1);
+		}
+
+		// 現在の素数の2乗が探索リストの末尾より大きければ終了
+		if (n * n > numArr[numArr.length - 1]) break;
+	}
+
+	// 残ったリストを素数リストに加えたのが素数の配列
+	resArr = primeArr.concat(numArr);
+
+	// 結果の配列を戻して終了
+	return resArr;
+}

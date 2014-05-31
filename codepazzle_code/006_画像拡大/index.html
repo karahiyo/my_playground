@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>画像を"びよ～ん"と拡大しよう</title>
+  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="../cmn/utl.js" charset="UTF-8"></script>
+  <script src="rndr.js" charset="UTF-8"></script>
+  <script src="main.js" charset="UTF-8"></script>
+  <script src="codeBilinear.js" charset="UTF-8"></script>
+  <script src="codeBicubic.js" charset="UTF-8"></script>
+  <script src="codeNearestNeighbor.js" charset="UTF-8"></script>
+</head>
+<body>
+  <h1>画像を"びよ～ん"と拡大しよう</h1>
+  <h2>● コード入力</h2>
+  <div>
+	<textarea id="src" style="width: 600px; height: 300px;">
+	</textarea><br>
+	<input type="button" value="コードを確認" id="chck">
+	<select id="codeType">
+		<option value="codeNearestNeighbor">ニアレストネイバー法</option>
+		<option value="codeBilinear">バイリニア法</option>
+		<option value="codeBicubic">バイキュービック法</option>
+	</select>のコードを読み込む
+  </div>
+
+  <h2>● 結果判定　<span id="stts" style="color: red;"></span></h2>
+  <div id="cnvsArea"></div>
+  <textarea id="res" style="width: 600px; height: 10em;">
+  </textarea>
+</body>
+</html>

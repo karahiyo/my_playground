@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>山あり谷あり 最短経路を探せ</title>
+  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="../cmn/utl.js" charset="UTF-8"></script>
+  <script src="../cmn/xors.js" charset="UTF-8"></script>
+  <script src="mkMap.js" charset="UTF-8"></script>
+  <script src="rndr.js" charset="UTF-8"></script>
+  <script src="main.js" charset="UTF-8"></script>
+  <script src="code.js" charset="UTF-8"></script>
+</head>
+<body>
+  <h1>山あり谷あり 最短経路を探せ</h1>
+  <h2>● コード入力</h2>
+  <div>
+	<br><textarea id="src" style="width: 600px; height: 250px;">
+	</textarea><br>
+  </div>
+
+  <div>
+	ランダム シード<input type="text" value="0" id="seed"><br>
+	<input type="button" value="コードを確認" id="chck">
+	<input type="button" value="シードを+1して確認" id="chckPls1">
+	<input type="button" value="100回確認" id="chck100">
+	<input type="text" value="200" id="tryNo" 
+		style="width: 5em; text-align: right;">
+	<input type="button" value="回確認" id="chckN">
+  </div>
+
+  <h2>● 結果判定</h2>
+  <div>（赤があなた、青がCOM）</div>
+  <div id="cnvsArea"></div>
+  <textarea id="res" style="width: 600px; height: 10em;">
+  </textarea>
+</body>
+</html>

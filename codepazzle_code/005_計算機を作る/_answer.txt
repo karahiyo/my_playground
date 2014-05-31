@@ -1,0 +1,38 @@
+function yourCode(arg) {
+	// 式を変換
+	var repStr = arg.replace(/(\d)-/g, "$1+-");
+
+	// 式を分割
+	var splt = repStr.match(/[-\d]+|./g);
+	console.log(splt)
+
+	// 掛け算、割り算を実行して数値配列を作る
+	var num = [];
+	while (splt.length) {
+		var tgt = splt.shift();
+		if (tgt == "+") continue;	// 「+」足し算
+		if (tgt == "*") {
+			// 「*」掛け算
+			var bfr  = num.pop();
+			var aftr = splt.shift();
+			num.push(bfr * aftr);
+		} else
+		if (tgt == "/") {
+			// 「/」割り算
+			var bfr  = num.pop();
+			var aftr = splt.shift();
+			num.push(bfr / aftr);
+		} else {
+			num.push(~~tgt);	// 数値
+		}
+	}
+	console.log(num)
+
+	// 数値配列の合計を求める
+	var res = 0;
+	while (num.length) res += num.shift();
+	console.log(res)
+
+	// 結果の配列を戻して終了
+	return res;
+}

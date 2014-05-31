@@ -1,0 +1,112 @@
+function yourCode(arg) {
+	// 使用関数の作成
+
+	// 式のネスト
+	function nest(arrSrc, arrDst, mark) {
+		// 元配列が空になるまで実施
+		while(arrSrc.length) {
+			var tgt = arrSrc.shift();
+			if (mark.indexOf(tgt) >= 0) {
+				// 指定記号の場合は逆ポーランド記法でネスト
+				var bfr  = arrDst.pop();
+				var aftr = arrSrc.shift();
+				arrDst.push([bfr, aftr, tgt]);
+			} else {
+				// その他は送出配列に格納
+				arrDst.push(tgt);
+			}
+		}
+	}
+
+	// 式の展開
+	function expand(arrSrc, arrDst) {
+		var tgt = arrSrc.shift();
+		if (tgt instanceof Array) {
+			// 配列の場合はネスト
+			arguments.callee(tgt, arrDst);
+		} else {
+			// その他は送出配列に格納
+			arrDst.push(tgt);
+		}
+		if (arrSrc.length > 0) {
+			// 元配列がまだあるなら再帰
+			arguments.callee.apply(this, arguments);
+		}
+	}
+
+	// 逆ポーランド記法から計算
+	function reversePolishNotation(arrSrc, arrDst) {
+		// 元配列が空になるまで実施
+		while(arrSrc.length) {
+			var tgt = arrSrc.shift();
+			if(tgt.match(/\d/)) {
+				// 数値なら送出配列に格納
+				arrDst.push(~~tgt);
+			} else {
+				// 演算子なら前2つの値を取る
+				var aftr = arrDst.pop();
+				var bfr  = arrDst.pop();
+
+				// 計算結果を送出配列に格納
+				var r;
+				if (tgt == "+") {r = bfr + aftr;}
+				if (tgt == "*") {r = bfr * aftr;}
+				if (tgt == "/") {r = bfr / aftr;}
+				arrDst.push(r);
+
+				console.log(bfr + "," + aftr + "," + tgt
+					+ " -> " + r);
+			}
+		}
+	}
+
+	// 配列出力用変数
+	function dump(arr) {
+		var res = [];
+		for (var i = 0; i < arr.length; i ++) {
+			var dat = arr[i];
+			if (dat instanceof Array) {
+				res.push(dump(dat));
+			} else {
+				res.push(dat);
+			}
+		}
+		return "[" + res.join(", ") + "]";
+	}
+
+	//========================================
+
+	// 式を変換
+	var repStr = arg.replace(/(\d)-/g, "$1+-");
+
+	// 式を分割
+	var splt = repStr.match(/[-\d]+|./g);
+	console.log("分割：", dump(splt));
+
+	// 掛け算、割り算を並べ換えてネストさせる
+	var arrSrc = splt;
+	var arrDst = [];
+	nest(arrSrc, arrDst, "*/");
+	console.log("掛け算、割り算：", dump(arrDst));
+
+	// 足し算を並べ換えてネストさせる
+	arrSrc = arrDst;
+	arrDst = [];
+	nest(arrSrc, arrDst, "+");
+	console.log("足し算：", dump(arrDst));
+
+	// 逆ポーランド記法に展開
+	arrSrc = arrDst;
+	arrDst = [];
+	expand(arrSrc, arrDst);
+	console.log("展開：", dump(arrDst));
+
+	// 逆ポーランド記法から計算
+	arrSrc = arrDst;
+	arrDst = [];
+	console.log("逆ポーランド記法の計算：");
+	reversePolishNotation(arrSrc, arrDst);
+	console.log("答え：", arrDst[0]);
+
+	return arrDst[0];
+}
