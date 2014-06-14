@@ -7,8 +7,11 @@ UGLIFYJS=$(shell which uglifyjs)
 
 patch_src_exists := $(shell find $(TARGET)/code.min.js)
 rm_src := $(shell rm -f $(TARGET)/code.min.js)
-rm_message := $(echo "remove old code")
 TARGET=
+
+define rm_message
+	@echo "INFO: remove code.min.js"
+endef
 
 up:
 	$(RUBY) -run -e httpd $(TARGET)/index.html -p 33720
