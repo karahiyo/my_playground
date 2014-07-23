@@ -1,5 +1,6 @@
+// http://codegolf.stackexchange.com/questions/1431/circles-of-text
 //元のコード
-Function originailCode() {
+function originalCode() {
     var res = "";
     var w = 80;
     var h = 40;
