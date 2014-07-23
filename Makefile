@@ -18,5 +18,6 @@ up:
 
 min:
 	$(if $(check_file_exists), $(rm_src), $(rm_message))
+	echo "$(UGLIFYJS) $(TARGET)/code.js > $(TARGET)/code.min.js"
 	$(UGLIFYJS) $(TARGET)/code.js > $(TARGET)/code.min.js
 
